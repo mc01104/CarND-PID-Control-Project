@@ -26,8 +26,6 @@ void PID::Init(double Kp_, double Ki_, double Kd_)
   // Counters.
   counter = 0;
   errorSum = 0.0;
-  minError = std::numeric_limits<double>::max();
-  maxError = std::numeric_limits<double>::min();
 }
 
 void PID::UpdateError(double cte)
@@ -44,23 +42,10 @@ void PID::UpdateError(double cte)
 
   errorSum += cte;
   counter++;
-
-  if (cte > maxError)
-  {
-    maxError = cte;
-  }
-  if (cte < minError)
-  {
-    minError = cte;
-  }
 }
 
 double PID::TotalError()
 {
-  /**
-   * TODO: Calculate and return the total error
-   */
-  // ::std::cout << "P-error: " << p_error << ",  D-error: " << d_error << ",  I-error: " << i_error << ::std::endl;
   ::std::cout << "Total error in controller: " << p_error * Kp + i_error * Ki + d_error * Kd << ::std::endl;
 
   return p_error * Kp + i_error * Ki + d_error * Kd;
